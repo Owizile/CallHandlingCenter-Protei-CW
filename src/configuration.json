@@ -1,0 +1,8 @@
+{
+    "queueMaxSize" : 5,
+    "holdMinDuration" : 20,
+    "holdMaxDuration" : 60,
+    "callMinDuration" : 60,
+    "callMaxDuration" : 120,
+    "operatorsNum" : 5
+}
