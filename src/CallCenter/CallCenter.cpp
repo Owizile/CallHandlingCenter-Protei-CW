@@ -84,8 +84,6 @@ std::string getCallNumberFromHTTPRequest(std::shared_ptr<asio::streambuf> reques
     std::string contentType = getHeaderValue(allRequest, "Content-Type");
     std::string callNumber;
 
-    std::cout << (contentType == "text/plain\r\n\n");
-
     if (contentType.find("text/plain") != -1) {
         callNumber = requestLine;
     } else if (contentType.find("application/json") != -1) {
@@ -174,7 +172,7 @@ void CallCenter::startWrite(std::shared_ptr<ip::tcp::socket> socket, const std::
 void CallCenter::watchQueueAndAssignCalls() {
     while (queueWatcherFlag) {
         {
-            std::lock_guard<std::mutex> lock(operatorsMutex);
+            boost::unique_lock<boost::mutex> lock(operatorsMutex);
 
             while (!operators.empty() && callQueue.getSize() != 0) {
                 Operator* currentOperator = operators.front();

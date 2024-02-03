@@ -10,7 +10,6 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <memory>
 #include "CallCenterConfig.hpp"
 #include "Operator.hpp"
 #include "CallQueue.hpp"
@@ -29,9 +28,9 @@ private:
     asio::io_service& ioService;
     ip::tcp::acceptor acceptor;
 
-    std::mutex operatorsMutex; 
+    boost::mutex operatorsMutex; 
     bool queueWatcherFlag = true; 
-    std::thread queueWatcherThread;
+    boost::thread queueWatcherThread;
 
     void startAccept();
     void handleAccept(std::shared_ptr<ip::tcp::socket> socket, const boost::system::error_code& error);

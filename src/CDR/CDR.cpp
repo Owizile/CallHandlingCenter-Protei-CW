@@ -19,6 +19,7 @@ void CDR::setCDRPath(std::string path) {
 };
 
 void CDR::writeCall(Call* call, int callStatus) {
+    boost::unique_lock<boost::mutex> lock(mutex);
     switch (callStatus) {
         case OK: {
             boost::posix_time::ptime connectTime = call->getConnectTime();

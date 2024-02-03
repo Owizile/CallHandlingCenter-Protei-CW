@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <boost/log/trivial.hpp>
+#include <boost/thread.hpp>
 #include "Call.hpp"
 
 enum CallStatus {OK, timeout, alreadyInQueue, overload};
@@ -11,6 +12,7 @@ enum CallStatus {OK, timeout, alreadyInQueue, overload};
 class CDR {
 private:
     std::ofstream outputFile;
+    boost::mutex mutex;
 public:
     CDR(std::string CDRPath);
     ~CDR();
